@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 
-<html>
+<html style="flex: 1; height: 100vh; display: flex; flex-direction: column;">
     <head>
-        <title>TODO supply a title</title>
+        <title>Calculadora</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     </head>
-    <body>
-        <div>TODO write content</div>
+    <body style="flex: 1; height: 100vh; display: flex; flex-direction: column;">
+        <div class="container" style="height: 100%">
+            <div class="row justify-content-center" style="height: 100%">
+                <div class="col align-self-center">
+                    <form action="Vista.jsp" method="POST">
+                        <div class="form-group">
+                            <label for="X" style="font-family: 'Pacifico', cursive;">X</label>
+                            <input type="number" class="form-control" id="X" placeholder="X" name="X">
+                        </div>
+                        <div class="form-group">
+                            <label for="Op" style="font-family: 'Pacifico', cursive;">Operación</label>
+                            <select class="form-control" id="Op" name="Op" style="font-family: 'Pacifico', cursive;">
+                                <option style="font-family: 'Pacifico', cursive;">+</option>
+                                <option style="font-family: 'Pacifico', cursive;">-</option>
+                                <option style="font-family: 'Pacifico', cursive;">*</option>
+                                <option style="font-family: 'Pacifico', cursive;">/</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Y" style="font-family: 'Pacifico', cursive;">Y</label>
+                            <input type="number" class="form-control" id="Y" placeholder="Y" name="Y">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script>
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results[1] || 0;
+            }
+            if ($.urlParam('Datos') === '1') {
+                alert('Error datos mal ingresados');
+            }
+        </script>
     </body>
 </html>
