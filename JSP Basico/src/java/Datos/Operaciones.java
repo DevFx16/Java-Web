@@ -16,4 +16,16 @@ public class Operaciones {
         }
         return true;
     }
+    
+    public float Operacion(String Op){
+        if(Op.equals("+")){
+            return X + Y;
+        }else if(Op.equals("-")){
+            return X - Y;
+        }else if(Op.equals("*")){
+            return X * Y;
+        }else {
+            return X / Y;
+        }
+    }
 }
