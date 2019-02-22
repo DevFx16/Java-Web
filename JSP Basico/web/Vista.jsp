@@ -11,24 +11,13 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     </head>
-    <body style="flex: 1; height: 100vh; display: flex; flex-direction: column;">
-        <%!
-            Operaciones Op = new Operaciones();
-            String Result = "";
-        %>
-        <%
-            if (Op.Verificar(request.getParameter("X"), request.getParameter("X"))) {
-                Result = "Resultado es: " + Op.Operacion(request.getParameter("Op"));
-            } else {
-                response.sendRedirect("/JSP_Basico/index.html?Datos=1");
-            }
-        %>
+    <body style="flex: 1; height: 100vh; display: flex; flex-direction: column; background: rgb(159,164,32);background: linear-gradient(90deg, rgba(159,164,32,0) 20%, rgba(21,195,199,0.41780462184873945) 46%, rgba(0,212,255,1) 61%);">
         <div class="container" style="height: 100%">
-            <div class="row justify-content-center" style="height: 100%">
-                <div class="col align-self-center">
-                    <h1 style="font-family: 'Pacifico', cursive;"><%=Result%></h1>
-                    <a type="submit" class="btn btn-primary" href="/JSP_Basico/index.html">Regresar</a>
-                </div>
+            <div class="row justify-content-center align-items-end" style="height: 50%">
+                <h1 style="font-family: 'Pacifico', cursive;"><%= (String) request.getAttribute("Result")%></h1>
+            </div>
+            <div class="row justify-content-center align-items-center" style="height: 50%">
+                <a type="submit" class="btn btn-primary" href="/JSP_Basico/index.html">Regresar</a>
             </div>
         </div>
     </body>

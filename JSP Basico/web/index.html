@@ -11,16 +11,17 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     </head>
-    <body style="flex: 1; height: 100vh; display: flex; flex-direction: column;">
+    <body style="flex: 1; height: 100vh; display: flex; flex-direction: column;background: rgb(159,164,32);
+          background: linear-gradient(90deg, rgba(159,164,32,0) 20%, rgba(21,195,199,0.41780462184873945) 46%, rgba(0,212,255,1) 61%);">
         <div class="container" style="height: 100%">
             <div class="row justify-content-center" style="height: 100%">
-                <div class="col align-self-center">
-                    <form action="Vista.jsp" method="POST">
-                        <div class="form-group">
+                <form action="/JSP_Basico/Datos" method="POST">
+                    <div class="row justify-content-center align-items-end" style="height: 50%">
+                        <div class="form-group mr-2">
                             <label for="X" style="font-family: 'Pacifico', cursive;">X</label>
                             <input type="number" class="form-control" id="X" placeholder="X" name="X">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mr-2">
                             <label for="Op" style="font-family: 'Pacifico', cursive;">Operación</label>
                             <select class="form-control" id="Op" name="Op" style="font-family: 'Pacifico', cursive;">
                                 <option style="font-family: 'Pacifico', cursive;">+</option>
@@ -33,21 +34,14 @@
                             <label for="Y" style="font-family: 'Pacifico', cursive;">Y</label>
                             <input type="number" class="form-control" id="Y" placeholder="Y" name="Y">
                         </div>
+                    </div>
+                    <div class="row justify-content-center align-items-start" style="height: 50%">
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <script>
-            $.urlParam = function (name) {
-                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-                return results[1] || 0;
-            }
-            if ($.urlParam('Datos') === '1') {
-                alert('Error datos mal ingresados');
-            }
-        </script>
     </body>
 </html>
