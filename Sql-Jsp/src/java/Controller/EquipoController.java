@@ -6,6 +6,7 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.UUID;
 
 public class EquipoController implements IEquipo {
 
@@ -23,11 +24,13 @@ public class EquipoController implements IEquipo {
     @Override
     public void Create(Equipo Datos) throws ClassNotFoundException, SQLException {
         Connection _Conexion = Conexion();
-        PreparedStatement stm = _Conexion.prepareStatement("INSERT INTO EQUIPOS VALUES(?,?,?,?)");
-        stm.setString(1, Datos.getNombre());
-        stm.setString(2, Datos.getEstadio());
-        stm.setString(3, Datos.getUrlEscudo());
-        stm.setString(4, Datos.getUrlEstadio());
+        Datos.setId(UUID.randomUUID().toString());
+        PreparedStatement stm = _Conexion.prepareStatement("INSERT INTO EQUIPOS VALUES(?,?,?,?,?)");
+        stm.setString(1, Datos.getId());
+        stm.setString(2, Datos.getNombre());
+        stm.setString(3, Datos.getEstadio());
+        stm.setString(4, Datos.getUrlEscudo());
+        stm.setString(5, Datos.getUrlEstadio());
         stm.executeUpdate();
         _Conexion.close();
     }
@@ -55,7 +58,7 @@ public class EquipoController implements IEquipo {
     @Override
     public void CreateSchema() throws ClassNotFoundException, SQLException {
         Connection _Conexion = Conexion();
-        PreparedStatement stm = _Conexion.prepareStatement("CREATE TABLE IF NOT EXISTS EQUIPOS (Id INT AUTO_INCREMENT PRIMARY KEY, "
+        PreparedStatement stm = _Conexion.prepareStatement("CREATE TABLE IF NOT EXISTS EQUIPOS (Id VARCHAR(100) PRIMARY KEY, "
                 + "Nombre VARCHAR(30) NOT NULL, Estadio VARCHAR(30) NOT NULL, UrlEscudo VARCHAR(200) NOT NULL, UrlEstadio VARCHAR(200) NOT NULL)");
         stm.executeUpdate();
         _Conexion.close();

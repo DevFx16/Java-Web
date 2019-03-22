@@ -31,6 +31,10 @@ public class Agregar extends HttpServlet {
             _Service.CreateSchema();
             if (VerificarImagen(_Equipo.getUrlEscudo()) && VerificarImagen(_Equipo.getUrlEstadio())) {
                 _Service.Create(_Equipo);
+                request.setAttribute("Estado", "success");
+                request.setAttribute("Titulo", "Agregado");
+                request.setAttribute("Mensaje", "Agregado correctamente a la base de datos");
+                dispatcher.forward(request, response);
             } else {
                 ErrorImage(request, response, dispatcher);
             }

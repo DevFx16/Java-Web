@@ -2,7 +2,7 @@ package Model;
 
 public class Equipo {
     
-    private int Id;
+    private String Id;
     private String Nombre;
     private String Estadio;
     private String UrlEscudo;
@@ -10,17 +10,17 @@ public class Equipo {
 
     public Equipo(String Nombre, String Estadio, String UrlEscudo, String UrlEstadio) {
         this.Id = Id;
-        this.Nombre = Nombre;
-        this.Estadio = Estadio;
+        this.Nombre = Nombre.toUpperCase();
+        this.Estadio = Estadio.toUpperCase();
         this.UrlEscudo = UrlEscudo;
         this.UrlEstadio = UrlEstadio;
     }
 
-    public int getId() {
+    public String getId() {
         return Id;
     }
 
-    public void setId(int Id) {
+    public void setId(String Id) {
         this.Id = Id;
     }
 
