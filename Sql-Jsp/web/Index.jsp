@@ -13,30 +13,13 @@
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     </head>
     <body>
-        <% 
+        <%
             EquipoController _Service = new EquipoController();
-            _Service.CreateSchema();
+            try {
+                _Service.CreateSchema();
+            } catch (Exception e) {
+            }
         %>
-        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a class="navbar-item" href="../Sql">
-                    <span class="Titulo is-size-3 has-text-centered">RegeTeam</span>
-                </a>
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="button is-primary">
-                        <span class="icon is-medium">
-                            <i class="fas fa-plus fa-lg"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="NavBar.jsp" />
     </body>
 </html>

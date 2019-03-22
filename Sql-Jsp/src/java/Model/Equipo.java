@@ -5,14 +5,14 @@ public class Equipo {
     private int Id;
     private String Nombre;
     private String Estadio;
-    private String UrlEquipo;
+    private String UrlEscudo;
     private String UrlEstadio;
 
-    public Equipo(int Id, String Nombre, String Estadio, String UrlEquipo, String UrlEstadio) {
+    public Equipo(String Nombre, String Estadio, String UrlEscudo, String UrlEstadio) {
         this.Id = Id;
         this.Nombre = Nombre;
         this.Estadio = Estadio;
-        this.UrlEquipo = UrlEquipo;
+        this.UrlEscudo = UrlEscudo;
         this.UrlEstadio = UrlEstadio;
     }
 
@@ -40,12 +40,12 @@ public class Equipo {
         this.Estadio = Estadio;
     }
 
-    public String getUrlEquipo() {
-        return UrlEquipo;
+    public String getUrlEscudo() {
+        return UrlEscudo;
     }
 
-    public void setUrlEquipo(String UrlEquipo) {
-        this.UrlEquipo = UrlEquipo;
+    public void setUrlEscudo(String UrlEscudo) {
+        this.UrlEscudo = UrlEscudo;
     }
 
     public String getUrlEstadio() {
