@@ -2,10 +2,13 @@ package Controller;
 
 import Model.Equipo;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class EquipoController implements IEquipo {
@@ -36,8 +39,15 @@ public class EquipoController implements IEquipo {
     }
 
     @Override
-    public List<Equipo> Read() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Equipo> Read() throws ClassNotFoundException, SQLException {
+        List<Equipo> Get = new ArrayList();
+        Connection _Conexion = Conexion();
+        Statement stm = _Conexion.createStatement();
+        ResultSet Result = stm.executeQuery("SELECT * FROM EQUIPOS");
+        while(Result.next()){
+            Get.add(new Equipo(Result.getString(1), Result.getString(2), Result.getString(3), Result.getString(4), Result.getString(5)));
+        }
+        return Get;
     }
 
     @Override

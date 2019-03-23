@@ -16,6 +16,14 @@ public class Equipo {
         this.UrlEstadio = UrlEstadio;
     }
 
+    public Equipo(String Id, String Nombre, String Estadio, String UrlEscudo, String UrlEstadio) {
+        this.Id = Id;
+        this.Nombre = Nombre;
+        this.Estadio = Estadio;
+        this.UrlEscudo = UrlEscudo;
+        this.UrlEstadio = UrlEstadio;
+    }
+    
     public String getId() {
         return Id;
     }
