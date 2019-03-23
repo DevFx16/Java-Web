@@ -23,7 +23,8 @@
             </div>
             <footer class="card-footer">
                 <div class="card-footer-item">                
-                    <a class="button is-primary" href="./Agregar.jsp">
+                    <a class="button is-primary" href="./Editar.jsp?Nombre=${param.Nombre}&UrlEstadio=
+                       ${param.UrlEstadio}&Estadio=${param.Estadio}&Id=${param.Id}&UrlEscudo=${param.UrlEscudo}">
                         <span class="icon">
                             <i class="fas fa-edit"></i>
                         </span>

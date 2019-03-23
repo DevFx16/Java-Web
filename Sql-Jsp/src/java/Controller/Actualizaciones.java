@@ -1,10 +1,14 @@
 package Controller;
 
 import Model.Equipo;
+import java.awt.Image;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +26,7 @@ public class Actualizaciones extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
+        System.err.println(request.getParameter("Estadio"));
         _Equipo = new Equipo(request.getParameter("Id"), request.getParameter("Nombre"), request.getParameter("Estadio"),
                 request.getParameter("UrlEscudo"), request.getParameter("UrlEstadio"));
         if (request.getParameter("Metodo").equals("Eliminar")) {
@@ -39,8 +44,37 @@ public class Actualizaciones extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-
+            if (VerificarImagen(_Equipo.getUrlEscudo()) && VerificarImagen(_Equipo.getUrlEstadio())) {
+                try {
+                    _Service.Update(_Equipo);
+                    request.setAttribute("Estado", "success");
+                    request.setAttribute("Titulo", "Editado");
+                    request.setAttribute("Mensaje", "Editado correctamente a la base de datos");
+                    dispatcher.forward(request, response);
+                } catch (SQLException ex) {
+                    request.setAttribute("Estado", "error");
+                    request.setAttribute("Titulo", "Error con la Base de Datos");
+                    request.setAttribute("Mensaje", ex.toString().replace("'", ""));
+                    request.setAttribute("Equipo", _Equipo);
+                    dispatcher.forward(request, response);
+                }
+            } else {
+                ErrorImage(request, response, dispatcher);
+            }
         }
+    }
+
+    private boolean VerificarImagen(String Url) throws MalformedURLException, IOException {
+        Image imagen = ImageIO.read(new URL(Url));
+        return imagen != null;
+    }
+
+    private void ErrorImage(HttpServletRequest request, HttpServletResponse response, RequestDispatcher dispatcher) throws ServletException, IOException {
+        request.setAttribute("Estado", "error");
+        request.setAttribute("Titulo", "Error en las Imagenes");
+        request.setAttribute("Mensaje", "Imagen no encontrada");
+        request.setAttribute("Equipo", _Equipo);
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

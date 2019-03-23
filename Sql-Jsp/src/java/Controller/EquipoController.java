@@ -58,13 +58,20 @@ public class EquipoController implements IEquipo {
     }
 
     @Override
-    public Equipo Update(Equipo Datos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void Update(Equipo Datos) throws ClassNotFoundException, SQLException {
+        Connection _Conexion = Conexion();
+        PreparedStatement stm = _Conexion.prepareStatement("UPDATE EQUIPOS SET Nombre=?, Estadio=?, UrlEscudo=?, UrlEstadio=? WHERE Id=?");
+        stm.setString(1, Datos.getNombre());
+        stm.setString(2, Datos.getEstadio());
+        stm.setString(3, Datos.getUrlEscudo());
+        stm.setString(4, Datos.getUrlEstadio());
+        stm.setString(5, Datos.getId());
+        stm.executeUpdate();
+        _Conexion.close();
     }
 
     @Override
     public void Delete(String Id) throws ClassNotFoundException, SQLException {
-        System.err.println(Id);
         Connection _Conexion = Conexion();
         PreparedStatement stm = _Conexion.prepareStatement("DELETE FROM EQUIPOS WHERE Id=?");
         stm.setString(1, Id);
@@ -95,7 +102,7 @@ interface IEquipo {
 
     Equipo Read(int Id) throws ClassNotFoundException, SQLException;
 
-    Equipo Update(Equipo Datos) throws ClassNotFoundException, SQLException;
+    void Update(Equipo Datos) throws ClassNotFoundException, SQLException;
 
     void Delete(String Id) throws ClassNotFoundException, SQLException;
 }

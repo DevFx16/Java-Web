@@ -47,7 +47,7 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <button class="button is-success is-centered">
+                            <button class="button is-success is-centered" type="submit">
                                 Agregar
                             </button>
                         </p>

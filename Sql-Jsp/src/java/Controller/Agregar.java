@@ -28,7 +28,6 @@ public class Agregar extends HttpServlet {
         _Equipo = new Equipo(request.getParameter("Nombre"), request.getParameter("Estadio"),
                 request.getParameter("UrlEscudo"), request.getParameter("UrlEstadio"));
         try {
-            _Service.CreateSchema();
             if (VerificarImagen(_Equipo.getUrlEscudo()) && VerificarImagen(_Equipo.getUrlEstadio())) {
                 _Service.Create(_Equipo);
                 request.setAttribute("Estado", "success");
