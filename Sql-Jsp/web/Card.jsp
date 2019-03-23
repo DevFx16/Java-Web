@@ -4,8 +4,8 @@
     <div class="is-5" style="padding: 20px">
         <div class="card">
             <div class="card-image">
-                <figure class="image is-square">
-                    <img src="${param.UrlEstadio}" alt="Placeholder image">
+                <figure class="image">
+                    <img src="${param.UrlEstadio}" alt="Placeholder image" style="height: 320px; width: 320px" >
                 </figure>
             </div>
             <div class="card-content">
