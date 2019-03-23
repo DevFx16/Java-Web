@@ -19,68 +19,21 @@
         <%Equipo _Equipo;%>
         <%
             _Equipo = (Equipo) request.getAttribute("Equipo");
-            if(_Equipo == null){
-                _Equipo = new Equipo("","","","");
+            if (_Equipo == null) {
+                _Equipo = new Equipo("", "", "", "");
             }
-            if(request.getAttribute("Estado") != null && !request.getAttribute("Estado").equals("")){
-                out.print("<script>swal('"+request.getAttribute("Titulo")+"', '"+
-                        request.getAttribute("Mensaje").toString()+"', '"+request.getAttribute("Estado")+"')</script>");
+            if (request.getAttribute("Estado") != null && !request.getAttribute("Estado").equals("")) {
+                out.print("<script>swal('" + request.getAttribute("Titulo") + "', '"
+                        + request.getAttribute("Mensaje").toString() + "', '" + request.getAttribute("Estado") + "')</script>");
             }
         %>
-        <div class="container">
-            <div class="columns is-centered Pad">
-                <div class="column is-10 is-centered">
-                    <form method="POST" action="./Agregar">
-                        <div class="field">
-                            <label class="label">Nombre del Equipo</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" placeholder="F.C. BARCELONA" required minlength="1" maxlength="30" name="Nombre" 
-                                       value="<%=_Equipo.getNombre()%>">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-users"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Nombre del Estadio</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input class="input" type="text" placeholder="Camp Nou" required minlength="1" maxlength="30" name="Estadio"
-                                       value="<%=_Equipo.getEstadio()%>">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-futbol"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Url Escudo</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input type="url" class="input" type="text" placeholder="https://....png" required minlength="1" maxlength="200" 
-                                       name="UrlEscudo" value="<%=_Equipo.getUrlEscudo()%>">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-link"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label class="label">Url Estadio</label>
-                            <div class="control has-icons-left has-icons-right">
-                                <input type="url" class="input" type="text" placeholder="https://....png" required minlength="1" maxlength="200" 
-                                       name="UrlEstadio" value="<%=_Equipo.getUrlEstadio()%>">
-                                <span class="icon is-small is-left">
-                                    <i class="fas fa-link"></i>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <p class="control">
-                                <button class="button is-success is-centered">
-                                    Agregar
-                                </button>
-                            </p>
-                        </div>
-                    </form>  
-                </div>
-            </div>
-        </div>
+        <jsp:include page="Formulario.jsp">
+            <jsp:param name="Nombre" value="<%=_Equipo.getNombre()%>"/>
+            <jsp:param name="Estadio" value="<%=_Equipo.getEstadio()%>"/>
+            <jsp:param name="UrlEscudo" value="<%=_Equipo.getUrlEscudo()%>"/>
+            <jsp:param name="UrlEstadio" value="<%=_Equipo.getUrlEstadio()%>"/>
+            <jsp:param name="Id" value="<%=_Equipo.getId()%>"/>
+            <jsp:param name="Accion" value="./Agregar"/>
+        </jsp:include>
     </body>
 </html>

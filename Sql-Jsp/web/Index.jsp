@@ -14,15 +14,25 @@
         <link href="./Styles/Estilo.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
         <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
         <%!
             boolean Cargado;
             List<Equipo> _Equipos = new ArrayList();
+            Equipo Select;
         %>
         <%
             Cargado = false;
             EquipoController _Service = new EquipoController();
+            Select = (Equipo) request.getAttribute("Equipo");
+            if (Select == null) {
+                Select = new Equipo("", "", "", "");
+            }
+            if (request.getAttribute("Estado") != null && !request.getAttribute("Estado").equals("")) {
+                out.print("<script>swal('" + request.getAttribute("Titulo") + "', '"
+                        + request.getAttribute("Mensaje").toString() + "', '" + request.getAttribute("Estado") + "')</script>");
+            }
             try {
                 _Service.CreateSchema();
                 _Equipos = _Service.Read();
@@ -33,36 +43,37 @@
         %>
         <jsp:include page="NavBar.jsp" />
         <div class="container">
-
-            <% if (Cargado) { %>
-            <% if (_Equipos.isEmpty()) { %>
-            <div class="column is-5">
-                <figure class="image is-square">
-                    <img src="https://raw.githubusercontent.com/DevelopGadget/MongoClient/master/src/assets/404.png">
-                </figure>
-            </div>
-            <% } else { %>
-            <div class="column">
-                <div class="columns">
-                    <% for (Equipo Data : _Equipos) {%>
-                    <jsp:include page="Card.jsp">
-                        <jsp:param name="Nombre" value="<%=Data.getNombre()%>"/>
-                        <jsp:param name="Estadio" value="<%=Data.getEstadio()%>"/>
-                        <jsp:param name="UrlEscudo" value="<%=Data.getUrlEscudo()%>"/>
-                        <jsp:param name="UrlEstadio" value="<%=Data.getUrlEstadio()%>"/>
-                        <jsp:param name="Id" value="<%=Data.getId()%>"/>
-                    </jsp:include>
-                    <% } %>
+            <div class="columns is-centered">
+                <% if (Cargado) { %>
+                <% if (_Equipos.isEmpty()) { %>
+                <div class="column is-5">
+                    <figure class="image is-square">
+                        <img src="https://raw.githubusercontent.com/DevelopGadget/MongoClient/master/src/assets/404.png">
+                    </figure>
                 </div>
+                <% } else { %>
+                <div class="column">
+                    <div class="columns">
+                        <% for (Equipo Data : _Equipos) {%>
+                        <jsp:include page="Card.jsp">
+                            <jsp:param name="Nombre" value="<%=Data.getNombre()%>"/>
+                            <jsp:param name="Estadio" value="<%=Data.getEstadio()%>"/>
+                            <jsp:param name="UrlEscudo" value="<%=Data.getUrlEscudo()%>"/>
+                            <jsp:param name="UrlEstadio" value="<%=Data.getUrlEstadio()%>"/>
+                            <jsp:param name="Id" value="<%=Data.getId()%>"/>
+                        </jsp:include>
+                        <% } %>
+                    </div>
+                </div>
+                <% } %>
+                <% } else { %>
+                <div class="column is-5">
+                    <figure class="image is-square">
+                        <img src="https://i.redd.it/ounq1mw5kdxy.gif">
+                    </figure>
+                </div>
+                <% }%>
             </div>
-            <% } %>
-            <% } else { %>
-            <div class="column is-5">
-                <figure class="image is-square">
-                    <img src="https://i.redd.it/ounq1mw5kdxy.gif">
-                </figure>
-            </div>
-            <% }%>
         </div>
     </body>
 </html>

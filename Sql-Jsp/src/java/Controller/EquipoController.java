@@ -44,9 +44,11 @@ public class EquipoController implements IEquipo {
         Connection _Conexion = Conexion();
         Statement stm = _Conexion.createStatement();
         ResultSet Result = stm.executeQuery("SELECT * FROM EQUIPOS");
-        while(Result.next()){
+        while (Result.next()) {
             Get.add(new Equipo(Result.getString(1), Result.getString(2), Result.getString(3), Result.getString(4), Result.getString(5)));
         }
+
+        _Conexion.close();
         return Get;
     }
 
@@ -61,16 +63,21 @@ public class EquipoController implements IEquipo {
     }
 
     @Override
-    public boolean Delete(int Id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void Delete(String Id) throws ClassNotFoundException, SQLException {
+        System.err.println(Id);
+        Connection _Conexion = Conexion();
+        PreparedStatement stm = _Conexion.prepareStatement("DELETE FROM EQUIPOS WHERE Id=?");
+        stm.setString(1, Id);
+        stm.executeUpdate();
+        _Conexion.close();
     }
 
     @Override
     public void CreateSchema() throws ClassNotFoundException, SQLException {
         Connection _Conexion = Conexion();
-        PreparedStatement stm = _Conexion.prepareStatement("CREATE TABLE IF NOT EXISTS EQUIPOS (Id VARCHAR(100) PRIMARY KEY, "
+        Statement stm = _Conexion.createStatement();
+        stm.executeUpdate("CREATE TABLE IF NOT EXISTS EQUIPOS (Id VARCHAR(100) PRIMARY KEY, "
                 + "Nombre VARCHAR(30) NOT NULL, Estadio VARCHAR(30) NOT NULL, UrlEscudo VARCHAR(200) NOT NULL, UrlEstadio VARCHAR(200) NOT NULL)");
-        stm.executeUpdate();
         _Conexion.close();
     }
 
@@ -90,5 +97,5 @@ interface IEquipo {
 
     Equipo Update(Equipo Datos) throws ClassNotFoundException, SQLException;
 
-    boolean Delete(int Id) throws ClassNotFoundException, SQLException;
+    void Delete(String Id) throws ClassNotFoundException, SQLException;
 }
