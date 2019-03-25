@@ -44,7 +44,7 @@ public class Actualizaciones extends HttpServlet {
                 dispatcher.forward(request, response);
             }
         } else {
-            if (VerificarImagen(_Equipo.getUrlEscudo()) && VerificarImagen(_Equipo.getUrlEstadio())) {
+            if (_Service.VerificarImagen(_Equipo.getUrlEscudo()) && _Service.VerificarImagen(_Equipo.getUrlEstadio())) {
                 try {
                     _Service.Update(_Equipo);
                     request.setAttribute("Estado", "success");
@@ -62,19 +62,6 @@ public class Actualizaciones extends HttpServlet {
                 ErrorImage(request, response, dispatcher);
             }
         }
-    }
-
-    private boolean VerificarImagen(String Url) throws MalformedURLException, IOException {
-        Image imagen = ImageIO.read(new URL(Url));
-        return imagen != null;
-    }
-
-    private void ErrorImage(HttpServletRequest request, HttpServletResponse response, RequestDispatcher dispatcher) throws ServletException, IOException {
-        request.setAttribute("Estado", "error");
-        request.setAttribute("Titulo", "Error en las Imagenes");
-        request.setAttribute("Mensaje", "Imagen no encontrada");
-        request.setAttribute("Equipo", _Equipo);
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

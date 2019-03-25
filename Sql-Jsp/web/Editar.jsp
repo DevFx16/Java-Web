@@ -1,9 +1,3 @@
-<%-- 
-    Document   : Editar
-    Created on : 22 mar. 2019, 21:09:18
-    Author     : DevelopGadget
---%>
-
 <%@page import="Model.Equipo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

@@ -1,6 +1,9 @@
 package Controller;
 
 import Model.Equipo;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
@@ -10,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 
 public class EquipoController implements IEquipo {
 
@@ -86,6 +91,23 @@ public class EquipoController implements IEquipo {
         stm.executeUpdate("CREATE TABLE IF NOT EXISTS EQUIPOS (Id VARCHAR(100) PRIMARY KEY, "
                 + "Nombre VARCHAR(30) NOT NULL, Estadio VARCHAR(30) NOT NULL, UrlEscudo VARCHAR(200) NOT NULL, UrlEstadio VARCHAR(200) NOT NULL)");
         _Conexion.close();
+    }
+
+    public boolean VerificarImagen(String Url) {
+        try {
+            Image imagen = ImageIO.read(new URL(Url));
+            return imagen != null;
+        } catch (IOException ex) {
+            return false;
+        }
+    }
+
+    public HttpServletRequest RequestAtributos(HttpServletRequest request, String Estado, String Titulo, String Mensaje, Equipo _Equipo) {
+        request.setAttribute("Estado", Estado);
+        request.setAttribute("Titulo", Mensaje);
+        request.setAttribute("Mensaje", Titulo);
+        request.setAttribute("Equipo", _Equipo);
+        return request;
     }
 
 }
