@@ -32,15 +32,10 @@ public class Actualizaciones extends HttpServlet {
         if (request.getParameter("Metodo").equals("Eliminar")) {
             try {
                 _Service.Delete(_Equipo.getId());
-                request.setAttribute("Estado", "success");
-                request.setAttribute("Titulo", "Eliminado");
-                request.setAttribute("Mensaje", "Eliminado correctamente de la base de datos");
+                request = _Service.RequestAtributos(request, "success", "Eliminado", "Eliminado correctamente de la base de datos", _Equipo);
                 dispatcher.forward(request, response);
             } catch (SQLException ex) {
-                request.setAttribute("Estado", "error");
-                request.setAttribute("Titulo", "Error con la Base de Datos");
-                request.setAttribute("Mensaje", ex.toString().replace("'", ""));
-                request.setAttribute("Equipo", _Equipo);
+                request = _Service.RequestAtributos(request, "error", "Error con la Base de Datos", ex.toString().replace("'", ""), _Equipo);
                 dispatcher.forward(request, response);
             }
         } else {
@@ -52,14 +47,12 @@ public class Actualizaciones extends HttpServlet {
                     request.setAttribute("Mensaje", "Editado correctamente a la base de datos");
                     dispatcher.forward(request, response);
                 } catch (SQLException ex) {
-                    request.setAttribute("Estado", "error");
-                    request.setAttribute("Titulo", "Error con la Base de Datos");
-                    request.setAttribute("Mensaje", ex.toString().replace("'", ""));
-                    request.setAttribute("Equipo", _Equipo);
+                    request = _Service.RequestAtributos(request, "success", "Editado", "Editado correctamente de la base de datos", _Equipo);
                     dispatcher.forward(request, response);
                 }
             } else {
-                ErrorImage(request, response, dispatcher);
+                request = _Service.RequestAtributos(request, "error", "Error en las imagenes", "Imagen no encontrada", _Equipo);
+                dispatcher.forward(request, response);
             }
         }
     }
