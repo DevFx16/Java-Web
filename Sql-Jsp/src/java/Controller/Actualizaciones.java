@@ -25,14 +25,15 @@ public class Actualizaciones extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
-        System.err.println(request.getParameter("Estadio"));
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Editar.jsp");
         _Equipo = new Equipo(request.getParameter("Id"), request.getParameter("Nombre"), request.getParameter("Estadio"),
                 request.getParameter("UrlEscudo"), request.getParameter("UrlEstadio"));
         if (request.getParameter("Metodo").equals("Eliminar")) {
             try {
+                dispatcher = getServletContext().getRequestDispatcher("/");
                 _Service.Delete(_Equipo.getId());
                 request = _Service.RequestAtributos(request, "success", "Eliminado", "Eliminado correctamente de la base de datos", _Equipo);
+                
                 dispatcher.forward(request, response);
             } catch (SQLException ex) {
                 request = _Service.RequestAtributos(request, "error", "Error con la Base de Datos", ex.toString().replace("'", ""), _Equipo);
