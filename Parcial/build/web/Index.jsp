@@ -1,3 +1,4 @@
+<%@page import="Controller.Controller"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Model.Formulario"%>
@@ -37,8 +38,17 @@
     </head>
     <body class="full">
         <%!
-            boolean Cargado = true;
-            List<Formulario> _Equipos = new ArrayList();
+            boolean Cargado = false;
+            List<Formulario> Registros = new ArrayList();
+            Controller Cont = new Controller();
+        %>
+        <%
+            try {
+                Cont.CreateSchema();
+                Registros = Cont.Read();
+            } catch (Exception e) {
+            }
+            Cargado = true;
         %>
         <div class="container is-fullhd full">
             <div class="columns full" >
@@ -46,7 +56,7 @@
                 <div class="column">
                     <table class="table is-fullwidth">
                         <thead>
-                            <tr><th colspan="6" class="has-text-centered">Documentos</th></tr>
+                            <tr><th colspan="6" class="has-text-centered">Registros</th></tr>
                             <tr>
                                 <th class="has-text-centered">Id</th>
                                 <th class="has-text-centered">Nombres</th>
@@ -56,6 +66,24 @@
                                 <th class="has-text-centered">Hobbies</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <%for (Formulario Reg : Registros) {%>
+                            <tr>
+                                <td class="has-text-centered"><%=Reg.getId()%></td>
+                                <td class="has-text-centered"><%=Reg.getNombres()%></td>
+                                <td class="has-text-centered"><%=Reg.getApellidos()%></td>
+                                <td class="has-text-centered"><%=Reg.getEmail()%></td>
+                                <td class="has-text-centered"><%=Reg.getLenguaje()%></td>
+                                <td class="has-text-centered">
+                                    <div class="tags is-horizontal-center">
+                                        <% for (String Data : Reg.getHobbies()) {%>
+                                        <span class="tag is-success"><%=Data%></span>
+                                        <% } %>
+                                    </div>
+                                </td>
+                            </tr>
+                            <%}%>
+                        </tbody>
                     </table>
                     <a class="button is-primary float" onClick="LanzarFormulario();"><i class="fa fa-plus"></i></a>
                 </div>

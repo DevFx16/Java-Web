@@ -9,11 +9,6 @@
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script type="text/babel">
-            import App from './Componentes/App';
-            const {render} = ReactDOM;
-            render(<App />, document.getElementById('root'));
-        </script>
     </head>
     <body>
         <div id="root"></div>

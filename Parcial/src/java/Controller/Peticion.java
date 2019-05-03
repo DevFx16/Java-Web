@@ -1,9 +1,13 @@
 package Controller;
 
 import Model.Formulario;
+import Model.Response;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,21 +26,16 @@ public class Peticion extends HttpServlet {
         Gson gson = new Gson();
         Controller Cont = new Controller();
         try {
-            Cont.CreateSchema();
             StringBuilder sb = new StringBuilder();
             String body;
             while ((body = request.getReader().readLine()) != null) {
                 sb.append(body);
             }
-
-            System.out.println(sb.toString());
             Formulario user = (Formulario) gson.fromJson(sb.toString(), Formulario.class);
             Cont.Create(user);
-            String userJson = gson.toJson(user);
-            out.print(userJson);
-
+            out.print(gson.toJson(new Response(true, user)));
         } catch (Exception ex) {
-            out.print(gson.toJson(ex));
+            out.print(gson.toJson(new Response(false, ex)));
         }
     }
 

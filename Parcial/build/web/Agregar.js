@@ -22,23 +22,29 @@ function LanzarFormulario() {
                 '<p class="control has-icons-left has-icons-right">' +
                 '<input class="input" type="email" placeholder="Email" required id="email" />' +
                 '<span class="icon is-small is-left">' +
-                '<i class="fas fa-alt"></i>' +
+                '<i class="fas fa-at"></i>' +
                 '</span>' +
                 '</p>' +
                 '</div>' +
                 '<div class="field">' +
-                '<p class="control">' +
-                '<select id="lenp" class="select is-primary is-fullwidth">' +
+                '<label class="label">Lenguaje</label>' +
+                '<div class="control has-icons-left">' +
+                '<span class="select is-primary is-fullwidth">' +
+                '<select id="lenp" class="is-fullwidth">' +
                 '<option value="Java">Java</option>' +
                 '<option value="JavaScript">JavaScript</option>' +
                 '<option value="Python">Python</option>' +
                 '<option value="Ruby">Ruby</option>' +
                 '</select>' +
-                '</p>' +
+                '</span>' +
+                '<span class="icon is-small is-left">' +
+                '<i class="fas fa-code"></i>' +
+                '</span>' +
+                '</div>' +
                 '</div>' +
                 '<div class="field">' +
-                '<p class="control">' +
-                '<label class="checkbox is-fullwidth" required>' +
+                '<div class="control">' +
+                '<label class="checkbox is-fullwidth">' +
                 'Hobbies: <br><br>' +
                 '<input type="checkbox" id="cb-autos" value="Autos" name="Autos" class="is-checkradio is-danger">' +
                 '<label for="Autos">Autos</label>' +
@@ -49,7 +55,7 @@ function LanzarFormulario() {
                 '<input type="checkbox" id="cb-instrumentos" value="Instrumentos" class="is-checkradio is-danger" name="Instrumentos">' +
                 '<label for="Instrumentos">Instrumentos</label>' +
                 '<label class="checkbox">' +
-                '</p>' +
+                '</div>' +
                 '</div>' +
                 '<div class="field">' +
                 '<p class="control">' +
@@ -64,7 +70,7 @@ function LanzarFormulario() {
 
 function Submit() {
     var misCabeceras = new Headers();
-    var ids = ['cb-autos', 'cb-deportes', 'cb-videojuegos', 'cb-videojuegos', 'cb-instrumentos'];
+    var ids = ['cb-autos', 'cb-deportes', 'cb-videojuegos', 'cb-instrumentos'];
     var check = [];
     ids.forEach(function (id) {
         if (document.getElementById(id).checked) {
@@ -76,7 +82,7 @@ function Submit() {
         headers: misCabeceras,
         body: JSON.stringify({
             'Nombres': document.getElementById('nombre').value,
-            'Apellido': document.getElementById('apellido').value,
+            'Apellidos': document.getElementById('apellido').value,
             'Email': document.getElementById('email').value,
             'Lenguaje': document.getElementById('lenp').value,
             'Hobbies': check
@@ -85,12 +91,16 @@ function Submit() {
     console.log(check);
 
     fetch('./Peticion', miInit).then(function (response) {
-        response.json().then(function (hola) {
-            console.log(hola)
+        response.json().then(function (data) {
+            if (data.Ok) {
+                window.location.href = "/Parcial";
+            } else {
+                Swal.fire('Error', data.Message.toString(), 'error');
+            }
         }).catch(function (error) {
-            console.log('Hubo un problema con la petición Fetch:' + error);
+            Swal.fire('Error', error.Message.toString(), 'error');
         });
     }).catch(function (error) {
-        console.log('Hubo un problema con la petición Fetch:' + error);
+        Swal.fire('Error', error.Message.toString(), 'error');
     });
 }
